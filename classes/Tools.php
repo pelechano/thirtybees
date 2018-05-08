@@ -4325,7 +4325,10 @@ exit;
      *
      * @return bool|mixed
      *
-     * @deprecated Use unserialize instead
+     * @deprecated Use unserialize() instead. For untrusted data, like data
+     *             coming in via HTTP requests or Cookies, switch to using
+     *             json_{de|en}coding().
+     *             See http://php.net/manual/en/function.unserialize.php.
      */
     public static function unSerialize($serialized, $object = false)
     {
