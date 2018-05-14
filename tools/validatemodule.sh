@@ -118,6 +118,22 @@ function n {
   echo "   Note: ${1}" >> ${REPORT}
 }
 
+# Extract a property of the module main class. More precisely, those properies
+# which are set by '$this-><property>' in the constructor.
+#
+# Parameter 1: Property. E.g. 'bla' for getting what's set with '$this->bla'.
+function constructorentry {
+  test -z "${1}" && return ''
+
+  MODULE_NAME=$(basename $(pwd))
+
+  sed -n '/__construct/,/^    \}$/p' "${MODULE_NAME}".php | \
+    grep '$this->'"${1}" | \
+    head -1 | \
+    cut -d "'" -f 2
+  unset MODULE_NAME
+}
+
 
 ### .gitignore
 
